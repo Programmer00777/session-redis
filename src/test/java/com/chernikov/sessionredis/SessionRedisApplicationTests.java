@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = SessionRedisApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SessionRedisApplicationTests {
 
     private static RedisServer redisServer;
@@ -28,9 +28,9 @@ class SessionRedisApplicationTests {
     @LocalServerPort
     private int port;
 
-    private Jedis jedis;
-    private TestRestTemplate testRestTemplate;
-    private TestRestTemplate testRestTemplateWithAuth;
+    private Jedis jedis = new Jedis("localhost", 6379);;
+    private TestRestTemplate testRestTemplate = new TestRestTemplate();;
+    private TestRestTemplate testRestTemplateWithAuth = new TestRestTemplate("admin", "password");;
 
     @BeforeClass
     public static void startRedisServer() throws IOException {
